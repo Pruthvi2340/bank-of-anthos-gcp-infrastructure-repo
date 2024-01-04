@@ -10,7 +10,7 @@ steps:
         cd infra-intial-setup
         terraform init
         terraform plan --var project_id=${PROJECT_ID}
-        terraform apply --var project_id=${PROJECT_ID}
+        terraform apply --var project_id=${PROJECT_ID} -auto-approve
 
 
   - name: "gcr.io/cloudbuilders/gcloud"
@@ -18,8 +18,9 @@ steps:
     args:
       - '-c'
       - |
-        gsutil mb gs://${PROJECT_ID}-bank-of-anthos
+        gsutil mb gs://${PROJECT_ID}-bank-of-anthos-tf-state
+        sed -i "s/bucket = \"bank-of-anthos-tf-state\"/bucket = \"${PROJECT_ID}-bank-of-anthos-tf-state\"/" main.tf
         cd gke-setup
         terraform init
         terraform plan --var project_id=${PROJECT_ID}
-        terraform apply --var project_id=${PROJECT_ID}
+        terraform apply --var project_id=${PROJECT_ID} -auto-approve
