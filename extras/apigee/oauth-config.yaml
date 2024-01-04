@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth-config
+data:
+  DEMO_OAUTH_CLIENT_ID: "{APIGEE_CLIENT_ID}"
+  DEMO_OAUTH_REDIRECT_URI: "https://{APIGEE_DOMAIN}/oauth/callback"

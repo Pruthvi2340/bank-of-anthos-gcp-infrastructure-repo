@@ -1,0 +1,18 @@
+######################################################################
+# Modify the default Service LoadBalancer to be 'Internal' to ensure
+# only traffic via the Ingress is allowed
+######################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080

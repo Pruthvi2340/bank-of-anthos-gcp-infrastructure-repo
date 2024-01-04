@@ -1,0 +1,7 @@
+region       = "us-central1"
+zone         = "us-central1-b"
+cluster_name = "anthos-sample-cluster1"
+sync_repo    = "https://github.com/GoogleCloudPlatform/bank-of-anthos"
+sync_branch  = "release/v0.6.2"
+sync_rev     = ""
+policy_dir   = "/kubernetes-manifests"
