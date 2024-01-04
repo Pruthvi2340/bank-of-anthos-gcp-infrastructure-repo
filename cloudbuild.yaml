@@ -14,7 +14,7 @@ steps:
 
 
   - name: "gcr.io/cloudbuilders/gcloud"
-    id: Inital infra setup
+    id: GKE infra setup
     args:
       - '-c'
       - |
