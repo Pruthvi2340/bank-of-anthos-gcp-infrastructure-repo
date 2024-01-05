@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cloud-sql-admin
-data:
-  connectionName: bank-of-anthos-ci:us-central1:bank-of-anthos-db-production

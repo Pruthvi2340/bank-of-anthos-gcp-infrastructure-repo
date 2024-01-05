@@ -1,6 +1,6 @@
 steps:
   # Inital infrastructure setup
-  - name: "gcr.io/cloudbuilders/gcloud"
+  - name: "gcr.io/cloud-builders/gcloud"
     id: Inital infra setup
     args:
       - '-c'
@@ -13,17 +13,18 @@ steps:
         terraform apply --var project_id=${PROJECT_ID} -auto-approve
 
 
-  - name: "gcr.io/cloudbuilders/gcloud"
+  - name: "gcr.io/cloud-builders/gcloud"
     id: GKE infra setup
     args:
       - '-c'
       - |
-        gsutil mb gs://${PROJECT_ID}-bank-of-anthos-tf-state
         sed -i "s/bucket = \"bank-of-anthos-tf-state\"/bucket = \"${PROJECT_ID}-bank-of-anthos-tf-state\"/" main.tf
         cd gke-setup
         terraform init
         terraform plan --var project_id=${PROJECT_ID}
         terraform apply --var project_id=${PROJECT_ID} -auto-approve
+        gcloud container clusters get-credentials bank-of-anthos-primary --zone us-central1 --project ${PROJECT_ID}
+        kubectl apply -f argocd-application\public-repo-accessing\application.yaml
 
 options:
   dynamic_substitutions: true
